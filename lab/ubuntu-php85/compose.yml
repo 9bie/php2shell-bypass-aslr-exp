@@ -1,0 +1,16 @@
+name: php2shellbt-ubuntu
+
+services:
+  web:
+    platform: linux/amd64
+    build:
+      context: .
+    ports:
+      - "127.0.0.1:18080:80"
+    volumes:
+      - ../../out:/out
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp=unconfined
+    restart: "no"
