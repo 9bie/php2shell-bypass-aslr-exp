@@ -250,6 +250,9 @@ LEAK_SPEC = "G:511:0x137" * 14 + "G:400:0x137" + "G:511:0x137" + "X:900"
 
 ### 6.2 窗口解析（`exploit.py::parse_leak`）
 
+`exploit.py` 默认 `--arch auto`：按泄漏窗口里重复指针的高位自动选择
+x86_64（`0x7f…`）或 aarch64（`0xffff…`），显式 `--arch` 可覆盖。
+
 800KB 解码后按 qword 扫 0x7f… 指针，按 `& ~0x1fffff`（2MiB）聚类：
 
 ```

