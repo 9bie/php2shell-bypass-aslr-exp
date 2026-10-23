@@ -124,7 +124,10 @@ ASLR 每次容器启动会变，链上两次泄漏会自己算出来。
 与本 README 的官方配置目标无关，已归档到
 [archive/legacy-8m/exploit.py](archive/legacy-8m/exploit.py)；
 同目录下的 [HTTP_HEAP_LEAK.md](archive/legacy-8m/HTTP_HEAP_LEAK.md)、
-[ASLR_PURE_HTTP.md](archive/legacy-8m/ASLR_PURE_HTTP.md) 等描述的是那一线。
+[ASLR_PURE_HTTP.md](archive/legacy-8m/ASLR_PURE_HTTP.md) 等描述的是那一线；
+旧的 `docker/php.ini`、`docker/docker-compose.yml`、`docker/offsets.py` 和
+`lab/apache2_aslr.conf` 也归档到了 `archive/legacy-8m/docker|lab/`。
+现在的 `docker/` 只保留 pure 链使用的 `apache.conf`（`--single`）和 `www/`。
 
 ## 复现声明
 

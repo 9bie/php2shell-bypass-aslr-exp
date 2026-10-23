@@ -142,7 +142,10 @@ unrelated to the official-config target above and is archived at
 the same directory, such as
 [HTTP_HEAP_LEAK.md](archive/legacy-8m/HTTP_HEAP_LEAK.md) and
 [ASLR_PURE_HTTP.md](archive/legacy-8m/ASLR_PURE_HTTP.md), describe that
-line.
+line. The old `docker/php.ini`, `docker/docker-compose.yml`,
+`docker/offsets.py`, and `lab/apache2_aslr.conf` are archived under
+`archive/legacy-8m/docker|lab/` too; the current `docker/` keeps only
+`apache.conf` (for `--single`) and `www/` used by the pure chain.
 
 ## Reproduction statement
 

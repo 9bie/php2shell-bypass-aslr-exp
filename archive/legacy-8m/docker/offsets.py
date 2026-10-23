@@ -12,7 +12,7 @@ symbol table directly -- no binutils needed inside the container -- then writes
 which exploit.py loads automatically.
 
 Usage:
-    python3 docker/offsets.py [container] [output]
+    python3 archive/legacy-8m/docker/offsets.py [container] [output]
 """
 
 from __future__ import annotations
@@ -25,8 +25,9 @@ import tempfile
 
 LIB = "/usr/lib/apache2/modules/libphp.so"
 HERE = os.path.dirname(os.path.abspath(__file__))
+_ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 DEFAULT_CONTAINER = "php2shell-target"
-DEFAULT_OUTPUT = os.path.join(os.path.dirname(HERE), "out", "offsets.env")
+DEFAULT_OUTPUT = os.path.join(_ROOT, "out", "offsets.env")
 
 SHT_SYMTAB = 2
 SHT_DYNSYM = 11

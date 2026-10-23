@@ -27,7 +27,7 @@ def get_maps():
             if "libc.so" in parts[-1] and libc is None: libc = start
     return libphp, libc
 
-CONF = "/home/debian/php2shell/lab/apache2_aslr.conf"
+CONF = "/home/debian/php2shell/archive/legacy-8m/lab/apache2_aslr.conf"
 
 def apache_restart():
     subprocess.run(["apache2", "-f", CONF, "-k", "stop"], capture_output=True)

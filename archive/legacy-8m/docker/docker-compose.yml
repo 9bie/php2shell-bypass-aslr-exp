@@ -10,9 +10,9 @@ services:
       - "127.0.0.1:8088:80"
     volumes:
       - ./php.ini:/usr/local/etc/php/conf.d/zz-php2shell.ini:ro
-      - ./apache.conf:/etc/apache2/conf-enabled/zz-php2shell.conf:ro
-      - ./www:/var/www/html:ro
-      - ../out:/out
+      - ../../../docker/apache.conf:/etc/apache2/conf-enabled/zz-php2shell.conf:ro
+      - ../../../docker/www:/var/www/html:ro
+      - ../../../out:/out
     # The host ./out directory is created by Docker as root; let the Apache
     # worker (www-data) write the proof file and make it readable here.
     command:
