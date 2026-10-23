@@ -1,6 +1,6 @@
 # php2shell - 官方环境 无需display_errors，不修改memory_limit
 
-中文 | [English](readme_en.md)
+中文 | [English](readme_en.md) | [日本語](readme_ja.md)
 
 **官方 prefork 配置（MaxRequestWorkers=150）下**，在完全远程、只用 HTTP、目标页面只有 `<?php echo "OK\n"; ?>`、不写目标侧
 PHP 的约束下，一条命令拿到 RCE：
