@@ -9,3 +9,6 @@ src/php-8.4.26/
 # Runtime output of the exploit (proof file / derived libphp offsets)
 out/*
 !out/.gitkeep
+
+# Local evidence logs (historical tracked logs are left as-is)
+/pure/evidence/*.log

@@ -393,6 +393,7 @@ print(hex(Counter(qs).most_common(1)[0][0] - 0x65EB60))  # libphp
 | 文件 | 用途 |
 |---|---|
 | `pure/run_pure.sh` | 起独立容器 `p2s-pure-18110`：默认 stock 官方 `php:8.4.26-apache` + 官方 `php.ini-production` + 官方 prefork（150 workers）；`--single` 单 worker；`--dbg` 带符号镜像 |
+| `pure/docker/` | pure 链自己的 Docker 资产：`www/index.php`（目标页）和非官方单 worker 覆盖 `apache-single-worker.conf`；根目录 `docker/` 只保留指向这里的兼容软链 |
 | `pure/chunked_send.py` | chunked 发送 multipart body（绕过 post_max_size） |
 | `pure/mk_a1.py` | A1 body（OOM 形状；支持 query 由 `--path` 给） |
 | `pure/mk_leak_b.py` | B body：`A:<page>` 311-page forge、`G:<pages>:<page>` 全块 forge、`F/S` flood、`X:n` 数组字段 |

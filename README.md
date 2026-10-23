@@ -45,7 +45,9 @@ python3 exploit.py --port 18110
 不编译 PHP/Apache、不 build 镜像、不挂 gdb、不改目标 ini。
 `pure/run_pure.sh` 默认容器 `p2s-pure-18110`、端口 `18110`，默认使用
 官方 prefork 配置（MaxRequestWorkers=150），起完会打印实际 ini 和 MPM
-值；`--single` 才挂单 worker 的 `docker/apache.conf`（配合 `--workers 1`）。
+值；`--single` 才挂非官方的单 worker 覆盖
+`pure/docker/apache-single-worker.conf`（配合 `--workers 1`）。`docker/apache.conf`
+只是给旧 harness 保留的兼容软链，指向同一个文件。
 Linux 上没有 docker 组权限时脚本会自动改用 `sudo docker`，也可以显式
 `DOCKER="sudo docker" ./pure/run_pure.sh`；`--dbg` 仅用于换成带符号的
 同一构建做离线标定。
@@ -127,7 +129,9 @@ ASLR 每次容器启动会变，链上两次泄漏会自己算出来。
 [ASLR_PURE_HTTP.md](archive/legacy-8m/ASLR_PURE_HTTP.md) 等描述的是那一线；
 旧的 `docker/php.ini`、`docker/docker-compose.yml`、`docker/offsets.py` 和
 `lab/apache2_aslr.conf` 也归档到了 `archive/legacy-8m/docker|lab/`。
-现在的 `docker/` 只保留 pure 链使用的 `apache.conf`（`--single`）和 `www/`。
+真正的单 worker 配置和目标页面在 `pure/docker/`
+（`apache-single-worker.conf`、`www/index.php`）；`docker/` 只保留
+`apache.conf`、`www` 两个兼容软链指向那里。
 
 ## 复现声明
 

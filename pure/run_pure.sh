@@ -14,7 +14,7 @@
 #
 # usage:
 #   ./run_pure.sh             # official workers, stock official image
-#   ./run_pure.sh --single    # mount docker/apache.conf (one worker)
+#   ./run_pure.sh --single    # mount pure/docker/apache-single-worker.conf (one worker)
 #   ./run_pure.sh --dbg       # same build with symbols + gdb (calibration only)
 #   IMAGE=... ./run_pure.sh   # explicit image override
 set -eu
@@ -44,7 +44,7 @@ for arg in "$@"; do
       ;;
     --single)
       SINGLE=1
-      MOUNT="-v $R/docker/apache.conf:/etc/apache2/conf-enabled/zz-p2s.conf:ro"
+      MOUNT="-v $R/pure/docker/apache-single-worker.conf:/etc/apache2/conf-enabled/zz-p2s.conf:ro"
       ;;
     *)
       echo "usage: $0 [--dbg] [--single]" >&2
@@ -60,7 +60,7 @@ mkdir -p "$R/out"
 # shellcheck disable=SC2086
 $DOCKER run -d --name "$NAME" $CAP $MOUNT \
   -p "127.0.0.1:$PORT:80" \
-  -v "$R/docker/www:/var/www/html:ro" \
+  -v "$R/pure/docker/www:/var/www/html:ro" \
   -v "$R/out:/out" \
   "$IMAGE" /bin/sh -c \
   'cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini;
@@ -79,7 +79,7 @@ $DOCKER exec "$NAME" php -i 2>/dev/null | \
   grep -E '^display_errors|^display_startup_errors|^memory_limit|^post_max_size|^output_buffering|^session.sid_length|^session.use_strict_mode|^session.save_path|^max_file_uploads|^max_input_vars|^max_multipart_body_parts' | head -20
 echo "--- MPM:"
 if [ "$SINGLE" = 1 ]; then
-  echo "workers: 1 (docker/apache.conf; run exploit with --workers 1)"
+  echo "workers: 1 (pure/docker/apache-single-worker.conf; non-official; run exploit with --workers 1)"
 else
   $DOCKER exec "$NAME" sh -c \
     "grep -v '^#' /etc/apache2/mods-enabled/mpm_prefork.conf | sed '/^$/d'"

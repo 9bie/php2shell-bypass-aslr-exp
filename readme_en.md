@@ -55,8 +55,10 @@ No PHP/Apache build, no image build, no gdb, no ini changes.
 `pure/run_pure.sh` uses container `p2s-pure-18110` on port `18110` by
 default with the image's official prefork configuration
 (MaxRequestWorkers=150), and prints the effective ini and MPM values.
-`--single` mounts the one-worker `docker/apache.conf` instead (use it with
-`--workers 1`). On Linux without docker-group access the script falls back
+`--single` mounts the non-official one-worker override
+`pure/docker/apache-single-worker.conf` instead (use it with `--workers 1`);
+`docker/apache.conf` is only a compatibility symlink to that file for
+older harnesses. On Linux without docker-group access the script falls back
 to `sudo docker`; you can also force
 `DOCKER="sudo docker" ./pure/run_pure.sh`. `--dbg` only switches to the
 symbolic build of the same official version for offline calibration.
@@ -144,8 +146,9 @@ the same directory, such as
 [ASLR_PURE_HTTP.md](archive/legacy-8m/ASLR_PURE_HTTP.md), describe that
 line. The old `docker/php.ini`, `docker/docker-compose.yml`,
 `docker/offsets.py`, and `lab/apache2_aslr.conf` are archived under
-`archive/legacy-8m/docker|lab/` too; the current `docker/` keeps only
-`apache.conf` (for `--single`) and `www/` used by the pure chain.
+`archive/legacy-8m/docker|lab/` too; the current `docker/` keeps only the
+compatibility symlinks `apache.conf` and `www` pointing into `pure/docker/`,
+where the real single-worker override and target page live.
 
 ## Reproduction statement
 

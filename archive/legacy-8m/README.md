@@ -19,7 +19,8 @@ workers; see [../../README.md](../../README.md) and
 [../../pure/RESEARCH_PURE_128M.md](../../pure/RESEARCH_PURE_128M.md).
 
 The archived paths were adjusted so the old flow still resolves the
-repository-root `out/` and the current `docker/apache.conf` + `docker/www`
-that the repository still ships for the `--single` lab mode. `tools/`,
+repository-root `out/` and the current `pure/docker/www` +
+`pure/docker/apache-single-worker.conf` that the repository still ships for
+the `--single` lab mode. `tools/`,
 `logs/`, and the untracked `bwcal/` tree were not moved; some old tools may
 still refer to the original locations.
