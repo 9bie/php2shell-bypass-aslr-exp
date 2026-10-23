@@ -74,6 +74,8 @@ for _ in $(seq 1 40); do
   sleep 0.5
 done
 echo "target: $(curl -s -m 3 "http://127.0.0.1:$PORT/index.php")"
+ARCH=$($DOCKER exec "$NAME" uname -m)
+echo "architecture: $ARCH (run exploit with --arch $ARCH)"
 $DOCKER exec "$NAME" php -v | head -1
 $DOCKER exec "$NAME" php -i 2>/dev/null | \
   grep -E '^display_errors|^display_startup_errors|^memory_limit|^post_max_size|^output_buffering|^session.sid_length|^session.use_strict_mode|^session.save_path|^max_file_uploads|^max_input_vars|^max_multipart_body_parts' | head -20
