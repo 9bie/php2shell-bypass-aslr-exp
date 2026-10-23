@@ -1,6 +1,6 @@
 # php2shell - Official environment, no `display_errors` needed, `memory_limit` untouched
 
-[中文](README.md) | English
+[中文](README.md) | English | [日本語](readme_ja.md)
 
 **Official prefork configuration (MaxRequestWorkers=150).** In a fully
 remote, HTTP-only setting, with only `<?php echo "OK\n"; ?>` on the target
